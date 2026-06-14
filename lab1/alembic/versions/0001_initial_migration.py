@@ -15,7 +15,7 @@ depends_on: Union[str, Sequence[str], None] = None
 
 
 def upgrade() -> None:
-    # Таблица пользователей
+    
     op.create_table(
         "users",
         sa.Column("id", sa.Integer(), nullable=False),
@@ -30,7 +30,7 @@ def upgrade() -> None:
     op.create_index(op.f("ix_users_username"), "users", ["username"], unique=True)
     op.create_index(op.f("ix_users_email"), "users", ["email"], unique=True)
 
-    # Таблица категорий
+    
     op.create_table(
         "categories",
         sa.Column("id", sa.Integer(), nullable=False),
@@ -42,7 +42,7 @@ def upgrade() -> None:
     )
     op.create_index(op.f("ix_categories_id"), "categories", ["id"], unique=False)
 
-    # Таблица тегов
+    
     op.create_table(
         "tags",
         sa.Column("id", sa.Integer(), nullable=False),
@@ -52,7 +52,7 @@ def upgrade() -> None:
     op.create_index(op.f("ix_tags_id"), "tags", ["id"], unique=False)
     op.create_index(op.f("ix_tags_name"), "tags", ["name"], unique=True)
 
-    # Таблица задач
+    
     op.create_table(
         "tasks",
         sa.Column("id", sa.Integer(), nullable=False),
@@ -72,7 +72,7 @@ def upgrade() -> None:
     )
     op.create_index(op.f("ix_tasks_id"), "tasks", ["id"], unique=False)
 
-    # Ассоциативная таблица task_tags (many-to-many с доп. полями)
+    
     op.create_table(
         "task_tags",
         sa.Column("task_id", sa.Integer(), nullable=False),
@@ -84,7 +84,7 @@ def upgrade() -> None:
         sa.PrimaryKeyConstraint("task_id", "tag_id"),
     )
 
-    # Таблица записей времени
+    
     op.create_table(
         "time_entries",
         sa.Column("id", sa.Integer(), nullable=False),

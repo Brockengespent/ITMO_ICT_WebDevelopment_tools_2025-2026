@@ -14,7 +14,7 @@ class TaskTag(Base):
     task_id: Mapped[int] = mapped_column(ForeignKey("tasks.id"), primary_key=True)
     tag_id: Mapped[int] = mapped_column(ForeignKey("tags.id"), primary_key=True)
 
-    # Дополнительное поле ассоциативной сущности
+    
     note: Mapped[str | None] = mapped_column(String(255), nullable=True)
     added_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
 

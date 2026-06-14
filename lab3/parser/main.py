@@ -29,7 +29,7 @@ PARSER_USERNAME = "parser_bot"
 PARSER_EMAIL = "parser@bot.local"
 
 
-# ── Вспомогательные функции ──────────────────────────────────────────────────
+
 
 def get_db_connection():
     """Открыть соединение с PostgreSQL."""
@@ -43,7 +43,7 @@ def get_or_create_parser_user(conn) -> int:
         row = cur.fetchone()
         if row:
             return row[0]
-        # bcrypt-хэш для пароля "parserpassword"
+        
         hashed = "$2b$12$KIX6v9MwwsrEJrR6ELDpSOQ5Q4HhcpK1W/sKgzXd1lZp6cZLJM9N."
         cur.execute(
             """INSERT INTO users (username, email, hashed_password, is_active, created_at)
@@ -70,7 +70,7 @@ def save_task_to_db(conn, user_id: int, title: str, url: str) -> int:
         return task_id
 
 
-# ── Схемы ────────────────────────────────────────────────────────────────────
+
 
 class ParseRequest(BaseModel):
     url: str
@@ -83,7 +83,7 @@ class ParseResponse(BaseModel):
     message: str
 
 
-# ── Эндпоинты ────────────────────────────────────────────────────────────────
+
 
 @app.get("/health")
 def health_check():

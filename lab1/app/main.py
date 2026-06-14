@@ -8,14 +8,14 @@ app = FastAPI(
     version="1.0.0",
 )
 
-# Подключение всех роутеров
+
 app.include_router(auth.router)
 app.include_router(users.router)
 app.include_router(categories.router)
 app.include_router(tags.router)
 app.include_router(tasks.router)
 app.include_router(time_entries.router)
-app.include_router(parser_router.router)  # ЛР3: парсер через HTTP и Celery
+app.include_router(parser_router.router)  
 
 
 @app.get("/", tags=["Корень"])

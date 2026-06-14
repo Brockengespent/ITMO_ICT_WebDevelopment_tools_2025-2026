@@ -7,7 +7,7 @@ from app.config import settings
 from app.database import get_db
 from app.schemas.token import TokenData
 
-# OAuth2 схема — ожидает Bearer-токен из заголовка Authorization
+
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
 
 

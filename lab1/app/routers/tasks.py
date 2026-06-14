@@ -78,7 +78,7 @@ def delete_one_task(
     delete_task(db, task)
 
 
-# ---------- Теги задачи (many-to-many) ----------
+
 
 @router.post("/{task_id}/tags", response_model=TaskTagRead, status_code=status.HTTP_201_CREATED)
 def add_tag(

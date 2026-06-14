@@ -15,7 +15,7 @@ class User(Base):
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
 
-    # Связь один-ко-многим: один пользователь — много задач
+    
     tasks: Mapped[list["Task"]] = relationship("Task", back_populates="owner", cascade="all, delete-orphan")
-    # Связь один-ко-многим: один пользователь — много категорий
+    
     categories: Mapped[list["Category"]] = relationship("Category", back_populates="owner", cascade="all, delete-orphan")

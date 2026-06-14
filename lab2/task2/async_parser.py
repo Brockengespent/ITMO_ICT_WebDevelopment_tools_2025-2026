@@ -57,7 +57,7 @@ async def parse_and_save(
         soup = BeautifulSoup(html, "html.parser")
         title = soup.title.string.strip() if soup.title else "Без заголовка"
 
-        # Запускаем синхронную запись в БД в ThreadPoolExecutor
+        
         loop = asyncio.get_running_loop()
         await loop.run_in_executor(executor, _save_to_db, title, url)
 
@@ -76,8 +76,8 @@ async def main_async() -> float:
 
     with ThreadPoolExecutor(max_workers=4) as db_executor:
         async with aiohttp.ClientSession(headers=headers) as session:
-            # Все запросы запускаются «одновременно» — event loop
-            # переключается между ними пока они ждут ответа
+            
+            
             tasks = [parse_and_save(session, url, db_executor) for url in URLS]
             results = await asyncio.gather(*tasks, return_exceptions=False)
 

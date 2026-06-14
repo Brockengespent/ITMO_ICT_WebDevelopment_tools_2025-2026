@@ -10,11 +10,11 @@ class TimeEntry(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True, index=True)
     task_id: Mapped[int] = mapped_column(ForeignKey("tasks.id"), nullable=False)
-    duration_minutes: Mapped[int] = mapped_column(Integer, nullable=False)  # Длительность в минутах
+    duration_minutes: Mapped[int] = mapped_column(Integer, nullable=False)  
     started_at: Mapped[datetime] = mapped_column(DateTime, nullable=False)
     ended_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
     comment: Mapped[str | None] = mapped_column(Text, nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
 
-    # Связь с задачей
+    
     task: Mapped["Task"] = relationship("Task", back_populates="time_entries")

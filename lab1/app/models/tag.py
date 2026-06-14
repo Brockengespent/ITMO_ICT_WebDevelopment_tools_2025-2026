@@ -10,5 +10,5 @@ class Tag(Base):
     id: Mapped[int] = mapped_column(primary_key=True, index=True)
     name: Mapped[str] = mapped_column(String(50), unique=True, index=True, nullable=False)
 
-    # Связь многие-ко-многим с задачами через ассоциативную таблицу TaskTag
+    
     task_associations: Mapped[list["TaskTag"]] = relationship("TaskTag", back_populates="tag")

@@ -9,7 +9,7 @@ import psycopg2
 from psycopg2.extensions import connection as PgConnection
 from dotenv import load_dotenv
 
-# Загружаем DATABASE_URL из .env файла lab1
+
 _ENV_PATH = os.path.join(os.path.dirname(__file__), "../../lab1/.env")
 load_dotenv(_ENV_PATH)
 
@@ -39,7 +39,7 @@ def ensure_parser_user(conn: PgConnection) -> int:
         if row:
             return row[0]
 
-        # Создаём пользователя с хэшем bcrypt для пароля "parserpassword123"
+        
         hashed = "$2b$12$KIX6v9MwwsrEJrR6ELDpSOQ5Q4HhcpK1W/sKgzXd1lZp6cZLJM9N."
         cur.execute(
             """

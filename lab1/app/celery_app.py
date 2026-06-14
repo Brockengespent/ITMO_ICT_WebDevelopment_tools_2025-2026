@@ -18,7 +18,7 @@ celery_app.conf.update(
     accept_content=["json"],
     timezone="Europe/Moscow",
     enable_utc=True,
-    # Маршрутизация задач
+    
     task_routes={
         "app.tasks.parse_url_task": {"queue": "parsing"},
     },

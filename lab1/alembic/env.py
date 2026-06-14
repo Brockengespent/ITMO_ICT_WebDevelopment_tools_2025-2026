@@ -2,15 +2,15 @@ from logging.config import fileConfig
 from sqlalchemy import engine_from_config, pool
 from alembic import context
 
-# Импортируем Base и все модели, чтобы Alembic видел метаданные таблиц
+
 from app.database import Base
-import app.models  # noqa: F401 — регистрируем все модели
+import app.models  
 
 config = context.config
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
-# Метаданные для автогенерации миграций
+
 target_metadata = Base.metadata
 
 

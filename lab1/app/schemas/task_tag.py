@@ -4,7 +4,7 @@ from pydantic import BaseModel
 
 class TaskTagCreate(BaseModel):
     tag_id: int
-    note: str | None = None  # Заметка о причине добавления тега
+    note: str | None = None  
 
 
 class TaskTagRead(BaseModel):

@@ -41,7 +41,7 @@ def main(n: int = N_DEMO) -> float:
     print(f"[Multiprocessing] Запуск {NUM_PROCESSES} процессов, N = {n:,}")
     t0 = time.perf_counter()
 
-    # Pool.starmap распределяет задачи по процессам и собирает результаты
+    
     with multiprocessing.Pool(processes=NUM_PROCESSES) as pool:
         partial_sums = pool.starmap(calculate_sum, ranges)
 

@@ -16,7 +16,7 @@ def parse_url_task(self, url: str) -> dict:
     max_retries=3 — повторяет задачу при ошибке до 3 раз.
     """
     try:
-        # Вызываем parser-сервис по HTTP внутри Docker-сети
+        
         response = httpx.post(
             f"{settings.parser_url}/parse",
             json={"url": url},
@@ -25,5 +25,5 @@ def parse_url_task(self, url: str) -> dict:
         response.raise_for_status()
         return response.json()
     except httpx.HTTPError as exc:
-        # При ошибке — повторить задачу через 5 секунд
+        
         raise self.retry(exc=exc)

@@ -29,22 +29,22 @@ class Task(Base):
     priority: Mapped[Priority] = mapped_column(Enum(Priority), default=Priority.medium)
     status: Mapped[TaskStatus] = mapped_column(Enum(TaskStatus), default=TaskStatus.todo)
     deadline: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
-    estimated_minutes: Mapped[int | None] = mapped_column(Integer, nullable=True)  # Оценка времени в минутах
+    estimated_minutes: Mapped[int | None] = mapped_column(Integer, nullable=True)  
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
     updated_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     owner_id: Mapped[int] = mapped_column(ForeignKey("users.id"), nullable=False)
     category_id: Mapped[int | None] = mapped_column(ForeignKey("categories.id"), nullable=True)
 
-    # Связи
+    
     owner: Mapped["User"] = relationship("User", back_populates="tasks")
     category: Mapped["Category | None"] = relationship("Category", back_populates="tasks")
 
-    # Связь многие-ко-многим с тегами через ассоциативную таблицу
+    
     tag_associations: Mapped[list["TaskTag"]] = relationship(
         "TaskTag", back_populates="task", cascade="all, delete-orphan"
     )
-    # Связь один-ко-многим: одна задача — много записей времени
+    
     time_entries: Mapped[list["TimeEntry"]] = relationship(
         "TimeEntry", back_populates="task", cascade="all, delete-orphan"
     )

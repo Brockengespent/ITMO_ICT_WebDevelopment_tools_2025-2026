@@ -12,15 +12,15 @@
 import threading
 import time
 
-# Целевое значение по заданию — 10 триллионов
+
 N_TARGET = 10_000_000_000_000
 
-# Значение для быстрой демонстрации (меняй здесь для тестирования)
+
 N_DEMO = 10_000_000
 
 NUM_THREADS = 4
 
-# Словарь для хранения частичных сумм от каждого потока
+
 results: dict[int, int] = {}
 lock = threading.Lock()
 
@@ -31,7 +31,7 @@ def calculate_sum(start: int, end: int, thread_id: int) -> None:
     Сохраняет результат в общий словарь results под ключом thread_id.
     """
     partial = sum(range(start, end + 1))
-    # Блокировка нужна, чтобы запись в словарь была потокобезопасной
+    
     with lock:
         results[thread_id] = partial
     print(f"  Поток {thread_id}: sum({start}..{end}) = {partial}")

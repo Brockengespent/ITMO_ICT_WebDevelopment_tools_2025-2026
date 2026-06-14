@@ -52,8 +52,8 @@ async def main_async(n: int = N_DEMO) -> float:
     t0 = time.perf_counter()
 
     with ProcessPoolExecutor(max_workers=NUM_WORKERS) as executor:
-        # asyncio.gather запускает все корутины «одновременно» —
-        # они все отправляют задачи в executor и ждут параллельно
+        
+        
         tasks = [
             async_calculate_sum(
                 executor,

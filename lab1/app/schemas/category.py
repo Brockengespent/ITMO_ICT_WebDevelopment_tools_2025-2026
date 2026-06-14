@@ -3,7 +3,7 @@ from pydantic import BaseModel, Field
 
 class CategoryCreate(BaseModel):
     name: str = Field(..., min_length=1, max_length=100)
-    color: str | None = Field(None, pattern=r"^#[0-9A-Fa-f]{6}$")  # HEX-цвет
+    color: str | None = Field(None, pattern=r"^#[0-9A-Fa-f]{6}$")  
 
 
 class CategoryRead(BaseModel):

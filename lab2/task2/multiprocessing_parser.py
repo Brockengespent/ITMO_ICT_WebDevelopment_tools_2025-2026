@@ -37,7 +37,7 @@ def parse_and_save(url: str) -> dict:
         soup = BeautifulSoup(response.text, "html.parser")
         title = soup.title.string.strip() if soup.title else "Без заголовка"
 
-        # Новое соединение для каждого процесса — обязательно!
+        
         conn = get_connection()
         user_id = ensure_parser_user(conn)
         save_parsed_result(conn, user_id, title, url)

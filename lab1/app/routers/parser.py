@@ -30,7 +30,7 @@ class AsyncParseResponse(BaseModel):
     message: str
 
 
-# ── Подзадача 2: синхронный вызов парсера ───────────────────────────────────
+
 
 @router.post("/parse")
 def parse_sync(
@@ -58,7 +58,7 @@ def parse_sync(
         raise HTTPException(status_code=504, detail="Таймаут запроса к парсеру")
 
 
-# ── Подзадача 3: асинхронный вызов через Celery ─────────────────────────────
+
 
 @router.post("/parse/async", response_model=AsyncParseResponse)
 def parse_async(

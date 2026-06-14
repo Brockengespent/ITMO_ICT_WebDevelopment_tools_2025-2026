@@ -40,7 +40,7 @@ def parse_and_save(url: str) -> None:
         soup = BeautifulSoup(response.text, "html.parser")
         title = soup.title.string.strip() if soup.title else "Без заголовка"
 
-        # Каждый поток создаёт своё соединение с БД
+        
         conn = get_connection()
         user_id = ensure_parser_user(conn)
         save_parsed_result(conn, user_id, title, url)

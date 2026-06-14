@@ -10,21 +10,19 @@ import async_parser
 
 
 def run_benchmark():
-    print("=" * 55)
     print("  БЕНЧМАРК: параллельный парсинг веб-страниц")
-    print("=" * 55)
 
     t_threading = threading_parser.main()
     t_multiprocessing = multiprocessing_parser.main()
     t_async = async_parser.main()
 
-    print("=" * 55)
+
     print(f"  {'Подход':<25} {'Время (сек)':>12}")
-    print("-" * 55)
+
     print(f"  {'Threading':<25} {t_threading:>12.4f}")
     print(f"  {'Multiprocessing':<25} {t_multiprocessing:>12.4f}")
     print(f"  {'Async / aiohttp':<25} {t_async:>12.4f}")
-    print("=" * 55)
+
 
     fastest = min(t_threading, t_multiprocessing, t_async)
     names = {
