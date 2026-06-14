@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from app.routers import auth, users, categories, tags, tasks, time_entries
+from app.routers import parser as parser_router
 
 app = FastAPI(
     title="Time Manager API",
@@ -14,6 +15,7 @@ app.include_router(categories.router)
 app.include_router(tags.router)
 app.include_router(tasks.router)
 app.include_router(time_entries.router)
+app.include_router(parser_router.router)  # ЛР3: парсер через HTTP и Celery
 
 
 @app.get("/", tags=["Корень"])
