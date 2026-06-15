@@ -345,14 +345,14 @@
       </div>
       <div class="actions">
         <a class="btn primary" href="#labs">Открыть обзор работ</a>
-        <a class="btn" href="../lab1/docs/index.html">ЛР1</a>
-        <a class="btn" href="../lab2/docs/index.html">ЛР2</a>
-        <a class="btn" href="../lab3/docs/index.html">ЛР3</a>
+        <a class="btn" href="#lab1">ЛР1</a>
+        <a class="btn" href="#lab2">ЛР2</a>
+        <a class="btn" href="#lab3">ЛР3</a>
       </div>
     </header>
 
     <section class="grid cards" id="labs">
-      <article class="card">
+      <article class="card" id="lab1">
         <div class="tag">ЛР1</div>
         <h2>FastAPI сервер для управления задачами</h2>
         <p>
@@ -364,10 +364,10 @@
           <li>Авторизация и хэширование паролей</li>
           <li>Подготовленная структура для расширения API</li>
         </ul>
-        <p style="margin-top:14px"><a href="../lab1/docs/index.html">Открыть подробный отчет →</a></p>
+        <p style="margin-top:14px"><a href="#lab1-details">Открыть подробный отчет →</a></p>
       </article>
 
-      <article class="card">
+      <article class="card" id="lab2">
         <div class="tag">ЛР2</div>
         <h2>Параллелизм: потоки, процессы и async</h2>
         <p>
@@ -379,10 +379,10 @@
           <li>Использование aiohttp, requests и BeautifulSoup</li>
           <li>Запись результатов в PostgreSQL</li>
         </ul>
-        <p style="margin-top:14px"><a href="../lab2/docs/index.html">Открыть подробный отчет →</a></p>
+        <p style="margin-top:14px"><a href="#lab2-details">Открыть подробный отчет →</a></p>
       </article>
 
-      <article class="card">
+      <article class="card" id="lab3">
         <div class="tag">ЛР3</div>
         <h2>Docker, парсер и Celery-очередь</h2>
         <p>
@@ -394,11 +394,11 @@
           <li>Очередь задач через Celery + Redis</li>
           <li>HTTP-вызов парсера и фоновые задачи</li>
         </ul>
-        <p style="margin-top:14px"><a href="../lab3/docs/index.html">Открыть подробный отчет →</a></p>
+        <p style="margin-top:14px"><a href="#lab3-details">Открыть подробный отчет →</a></p>
       </article>
     </section>
 
-    <section class="section">
+    <section class="section" id="lab1-details">
       <h2>Как связаны лабораторные</h2>
       <div class="timeline">
         <div class="step">
@@ -429,7 +429,7 @@
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="lab2-details">
       <h2>Краткое сравнение стеков</h2>
       <div class="table-wrap">
         <table>
@@ -461,16 +461,16 @@
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="lab3-details">
       <h2>Ссылки на детальные отчеты</h2>
       <p>
         Каждый отчет уже подготовлен отдельно. Эта страница выступает как входная точка для GitHub Pages,
         а нижние ссылки ведут в подробные отчеты по каждой работе.
       </p>
       <div class="actions" style="margin-top:16px">
-        <a class="btn primary" href="../lab1/docs/index.html">ЛР1: FastAPI API</a>
-        <a class="btn" href="../lab2/docs/index.html">ЛР2: Потоки и async</a>
-        <a class="btn" href="../lab3/docs/index.html">ЛР3: Docker и Celery</a>
+        <a class="btn primary" href="#lab1">ЛР1: FastAPI API</a>
+        <a class="btn" href="#lab2">ЛР2: Потоки и async</a>
+        <a class="btn" href="#lab3">ЛР3: Docker и Celery</a>
       </div>
     </section>
 
