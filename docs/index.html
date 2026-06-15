@@ -243,6 +243,76 @@
       margin-top: 16px;
     }
 
+    .section-subtitle {
+      color: var(--muted);
+      max-width: 78ch;
+      margin-bottom: 16px;
+    }
+
+    .mini-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin: 14px 0 10px;
+    }
+
+    .mini-card,
+    .metric,
+    .code-block,
+    .tree {
+      border: 1px solid rgba(148, 163, 184, 0.14);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .mini-card {
+      padding: 16px 18px;
+    }
+
+    .mini-card h3,
+    .metric strong {
+      font-size: 15px;
+      margin-bottom: 8px;
+      color: var(--accent2);
+    }
+
+    .mini-card p,
+    .metric p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .metric {
+      padding: 16px 18px;
+    }
+
+    .code-block,
+    .tree {
+      margin-top: 14px;
+      padding: 16px 18px;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      font-size: 13px;
+      color: var(--text);
+    }
+
+    .tree {
+      white-space: pre;
+    }
+
+    .bullet {
+      padding-left: 20px;
+      margin-top: 10px;
+    }
+
     table {
       width: 100%;
       border-collapse: collapse;
@@ -323,6 +393,11 @@
         padding-top: 18px;
       }
 
+      .mini-grid,
+      .metric-grid {
+        grid-template-columns: 1fr;
+      }
+
       .step {
         grid-template-columns: 1fr;
       }
@@ -399,38 +474,222 @@
     </section>
 
     <section class="section" id="lab1-details">
-      <h2>Как связаны лабораторные</h2>
-      <div class="timeline">
-        <div class="step">
-          <strong>ЛР1</strong>
-          <p>
-            Создает основу проекта: API, модели данных, миграции, JWT-аутентификацию и структуру,
-            с которой дальше работают остальные работы.
-          </p>
+      <h2>ЛР1 — FastAPI сервер для управления задачами</h2>
+      <p class="section-subtitle">
+        В первой работе реализовано серверное приложение Time Manager API. Оно объединяет аутентификацию,
+        CRUD-операции, работу с PostgreSQL и миграции Alembic.
+      </p>
+      <div class="mini-grid">
+        <div class="mini-card">
+          <h3>Назначение</h3>
+          <p>Сервер помогает управлять задачами, категоризировать их, добавлять теги и учитывать затраченное время.</p>
         </div>
-        <div class="step">
-          <strong>ЛР2</strong>
-          <p>
-            Показывает, как выбирать правильный способ параллелизма для разных типов задач и как
-            сохранять результаты парсинга в ту же БД, что и в первой работе.
-          </p>
-        </div>
-        <div class="step">
-          <strong>ЛР3</strong>
-          <p>
-            Упаковывает все в инфраструктуру: контейнеры, очередь задач и отдельный парсер-сервис,
-            который использует наработки из предыдущих лабораторных.
-          </p>
+        <div class="mini-card">
+          <h3>Результат</h3>
+          <p>Получен рабочий backend с документацией Swagger и подготовленной схемой данных для расширения.</p>
         </div>
       </div>
-      <div class="note">
-        Итоговая логика такая: ЛР1 дает сервер и БД, ЛР2 — инструменты параллельной обработки и парсинга,
-        ЛР3 — разворачивает это как распределенную систему.
+      <h3 id="lab1-stack">Технологический стек</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Компонент</th>
+              <th>Используется</th>
+              <th>Назначение</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Web-фреймворк</td><td>FastAPI</td><td>Маршрутизация, dependency injection, OpenAPI</td></tr>
+            <tr><td>ORM</td><td>SQLAlchemy 2.0</td><td>Работа с таблицами PostgreSQL</td></tr>
+            <tr><td>Миграции</td><td>Alembic</td><td>Управление схемой базы данных</td></tr>
+            <tr><td>JWT</td><td>python-jose, passlib[bcrypt]</td><td>Авторизация и хэширование паролей</td></tr>
+            <tr><td>База данных</td><td>PostgreSQL</td><td>Хранение пользователей, задач и времени</td></tr>
+          </tbody>
+        </table>
       </div>
+      <h3 id="lab1-structure" style="margin-top:22px">Структура файлов</h3>
+      <div class="tree">lab1/
+├── app/
+│   ├── main.py
+│   ├── config.py
+│   ├── database.py
+│   ├── models/
+│   ├── schemas/
+│   ├── crud/
+│   ├── routers/
+│   └── auth/
+├── alembic/
+├── alembic.ini
+├── requirements.txt
+└── Dockerfile</div>
+      <h3 id="lab1-models" style="margin-top:22px">Модель данных</h3>
+      <p class="section-subtitle">В проекте используется шесть основных таблиц. Связи построены так, чтобы поддерживать категории, теги и учет затраченного времени.</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Таблица</th>
+              <th>Смысл</th>
+              <th>Связи</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>users</td><td>Пользователи системы</td><td>Один пользователь владеет задачами</td></tr>
+            <tr><td>categories</td><td>Категории задач</td><td>one-to-many с tasks</td></tr>
+            <tr><td>tags</td><td>Теги</td><td>many-to-many с tasks через task_tags</td></tr>
+            <tr><td>tasks</td><td>Задачи с приоритетом и дедлайном</td><td>owner_id, category_id</td></tr>
+            <tr><td>task_tags</td><td>Связующая таблица</td><td>Связь задача ↔ тег и note</td></tr>
+            <tr><td>time_entries</td><td>Записи о затраченном времени</td><td>Связана с tasks и users</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3 id="lab1-api" style="margin-top:22px">API и точки входа</h3>
+      <div class="metric-grid">
+        <div class="metric"><strong>Auth</strong><p>Регистрация, вход и JWT-токены.</p></div>
+        <div class="metric"><strong>Users</strong><p>Работа с профилями пользователей.</p></div>
+        <div class="metric"><strong>Tasks</strong><p>CRUD задач, статусов и приоритетов.</p></div>
+      </div>
+      <div class="note">Основная точка входа — app/main.py, где регистрируются все роутеры и корневой эндпоинт.</div>
     </section>
 
     <section class="section" id="lab2-details">
-      <h2>Краткое сравнение стеков</h2>
+      <h2>ЛР2 — Потоки, процессы и асинхронность</h2>
+      <p class="section-subtitle">
+        Во второй работе сравниваются три способа делать несколько дел одновременно: потоки, процессы и async.
+        Для проверки использовались две задачи: сумма чисел и парсинг веб-страниц.
+      </p>
+      <div class="mini-grid">
+        <div class="mini-card">
+          <h3>Что проверяется</h3>
+          <p>В какой задаче какой подход работает лучше и где он дает меньше задержек.</p>
+        </div>
+        <div class="mini-card">
+          <h3>Что используется</h3>
+          <p>Результаты парсинга пишутся в ту же PostgreSQL-базу, что и в первой лабораторной.</p>
+        </div>
+      </div>
+      <h3 id="lab2-stack">Технологический стек</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Компонент</th>
+              <th>Используется</th>
+              <th>Назначение</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Потоки</td><td>threading</td><td>Параллелизм для I/O-bound и простая синхронизация</td></tr>
+            <tr><td>Процессы</td><td>multiprocessing</td><td>Настоящий параллелизм для CPU-bound задач</td></tr>
+            <tr><td>Async</td><td>asyncio, aiohttp</td><td>Неблокирующие HTTP-запросы и event loop</td></tr>
+            <tr><td>Парсинг</td><td>BeautifulSoup</td><td>Извлечение заголовков HTML-страниц</td></tr>
+            <tr><td>БД</td><td>psycopg2</td><td>Запись результатов в PostgreSQL</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3 id="lab2-task1" style="margin-top:22px">Задача 1 — сумма чисел</h3>
+      <div class="mini-grid">
+        <div class="mini-card"><h3>Потоки</h3><p>Делят один процесс и один словарь результатов. Для этой задачи работают, но не всегда дают большой выигрыш.</p></div>
+        <div class="mini-card"><h3>Процессы</h3><p>Каждый процесс работает отдельно. Это полезно, когда задача тяжелая и нужна настоящая параллельность.</p></div>
+      </div>
+      <div class="code-block">def calculate_sum(start: int, end: int) -&gt; int:
+    return sum(range(start, end + 1))
+
+async def main_async(n: int = N_DEMO) -&gt; float:
+    with ProcessPoolExecutor(max_workers=NUM_WORKERS) as executor:
+        partial_sums = await asyncio.gather(*tasks)</div>
+      <h3 id="lab2-task2" style="margin-top:22px">Задача 2 — параллельный парсинг</h3>
+      <div class="mini-grid">
+        <div class="mini-card"><h3>Потоки</h3><p>Подходят, когда программа ждет сеть. Пока один запрос ждет ответ, другие могут работать.</p></div>
+        <div class="mini-card"><h3>Async</h3><p>Самый удобный вариант для большого числа запросов. Один цикл событий управляет всеми загрузками.</p></div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Подход</th>
+              <th>Что делает</th>
+              <th>Итог</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Threading</td><td>requests + BeautifulSoup + запись в БД</td><td>Хорош для сетевого I/O</td></tr>
+            <tr><td>Multiprocessing</td><td>Отдельный процесс на URL</td><td>Избыточен для I/O, но изолирован</td></tr>
+            <tr><td>Async</td><td>aiohttp + asyncio.gather</td><td>Лучший вариант для массовых запросов</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3 id="lab2-conclusion" style="margin-top:22px">Выводы</h3>
+      <div class="metric-grid">
+        <div class="metric"><strong>Сумма чисел</strong><p>В этом запуске быстрее всего оказался threading: 0.0758 сек. Multiprocessing дал 0.0860 сек, а Async + ProcessPoolExecutor — 0.0780 сек. Разница небольшая, поэтому все три варианта работают почти одинаково.</p></div>
+        <div class="metric"><strong>Парсинг страниц</strong><p>Здесь быстрее всего оказался async: 0.6599 сек. Threading показал 0.8141 сек, но у него был один сбой из-за повторной записи parser_bot в БД, поэтому результат нужно смотреть с оговоркой.</p></div>
+        <div class="metric"><strong>Общий итог</strong><p>Для вычислений подходит любой вариант, если задача небольшая. Для загрузки страниц лучше async: он быстрее и проще для большого числа запросов.</p></div>
+      </div>
+      <div class="note" style="margin-top:16px">
+        Короткий вывод: для первой задачи разница между подходами почти не заметна, а для парсинга страниц лучше всего подошел async. Threading тоже работает, но в моем запуске один запрос упал из-за одинакового пользователя в базе.
+      </div>
+    </section>
+
+    <section class="section" id="lab3-details">
+      <h2>ЛР3 — Docker, парсер и Celery</h2>
+      <p class="section-subtitle">
+        Третья работа объединяет API из ЛР1, парсер-сервис, Redis и Celery. В результате получается
+        многоконтейнерная система, которую можно запускать через docker-compose.
+      </p>
+      <div class="mini-grid">
+        <div class="mini-card"><h3>Подзадача 1</h3><p>Упаковка API и парсера в Docker, запуск через compose, работа с общей БД.</p></div>
+        <div class="mini-card"><h3>Подзадача 3</h3><p>Очередь Celery + Redis для фонового выполнения парсинга без блокировки клиента.</p></div>
+      </div>
+      <h3 id="lab3-arch">Архитектура</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Сервис</th>
+              <th>Назначение</th>
+              <th>Порт / роль</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>db</td><td>PostgreSQL</td><td>5433:5432</td></tr>
+            <tr><td>redis</td><td>Брокер Celery</td><td>6379:6379</td></tr>
+            <tr><td>parser</td><td>HTTP-парсер страниц</td><td>8001:8001</td></tr>
+            <tr><td>api</td><td>Основное FastAPI-приложение</td><td>8000:8000</td></tr>
+            <tr><td>celery_worker</td><td>Фоновая обработка задач</td><td>Без публичного порта</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3 id="lab3-stack" style="margin-top:22px">Технологический стек</h3>
+      <div class="metric-grid">
+        <div class="metric"><strong>Docker</strong><p>Изоляция сервисов и одинаковая среда запуска.</p></div>
+        <div class="metric"><strong>Redis</strong><p>Брокер очереди для Celery.</p></div>
+        <div class="metric"><strong>Celery</strong><p>Фоновая обработка парсинга.</p></div>
+      </div>
+      <h3 id="lab3-compose" style="margin-top:22px">docker-compose.yml</h3>
+      <div class="code-block">services:
+  db:
+    image: postgres:16
+  redis:
+    image: redis:7-alpine
+  parser:
+    build: ./parser
+  api:
+    build:
+      context: ../lab1
+  celery_worker:
+    build:
+      context: ../lab1</div>
+      <h3 id="lab3-celery" style="margin-top:22px">Парсер и очередь задач</h3>
+      <div class="mini-grid">
+        <div class="mini-card"><h3>Парсер-сервис</h3><p>Отдельное FastAPI-приложение, принимающее URL, загружающее HTML и сохраняющее результат в БД.</p></div>
+        <div class="mini-card"><h3>Celery worker</h3><p>Использует ту же базу и брокер, но запускается отдельной командой в том же образе.</p></div>
+      </div>
+    </section>
+
+    <section class="section" id="summary">
+      <h2>Сводка по всем трем работам</h2>
+      <p class="section-subtitle">Ниже показано, как лабораторные складываются в единый проект.</p>
       <div class="table-wrap">
         <table>
           <thead>
@@ -444,7 +703,7 @@
             <tr>
               <td>ЛР1</td>
               <td>FastAPI, SQLAlchemy, Alembic, PostgreSQL, JWT</td>
-              <td>Готовый сервер для управления задачами и временем</td>
+              <td>Сервер для управления задачами и временем</td>
             </tr>
             <tr>
               <td>ЛР2</td>
@@ -461,23 +720,9 @@
       </div>
     </section>
 
-    <section class="section" id="lab3-details">
-      <h2>Ссылки на детальные отчеты</h2>
-      <p>
-        Каждый отчет уже подготовлен отдельно. Эта страница выступает как входная точка для GitHub Pages,
-        а нижние ссылки ведут в подробные отчеты по каждой работе.
-      </p>
-      <div class="actions" style="margin-top:16px">
-        <a class="btn primary" href="#lab1">ЛР1: FastAPI API</a>
-        <a class="btn" href="#lab2">ЛР2: Потоки и async</a>
-        <a class="btn" href="#lab3">ЛР3: Docker и Celery</a>
-      </div>
-    </section>
-
     <div class="footer">
       Подготовлено для публикации в GitHub Pages. Стартовая страница: docs/index.html.
     </div>
   </div>
 </body>
-
 </html>
