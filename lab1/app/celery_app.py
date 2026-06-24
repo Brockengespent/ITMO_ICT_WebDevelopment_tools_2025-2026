@@ -23,3 +23,5 @@ celery_app.conf.update(
         "app.tasks.parse_url_task": {"queue": "parsing"},
     },
 )
+
+import app.tasks
